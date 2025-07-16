@@ -16,6 +16,7 @@ export default function SearchableUserList({ users }: SearchableUserListProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
+    // при каждом монтировании сбрасываем фокус
     inputRef.current?.blur();
   }, []);
 
@@ -31,7 +32,7 @@ export default function SearchableUserList({ users }: SearchableUserListProps) {
   return (
     <>
       <Input
-        ref={inputRef}  
+        ref={inputRef}
         placeholder="Введите имя пользователя для поиска..."
         value={searchQuery}
         onChange={handleSearchInputChange}
@@ -45,18 +46,30 @@ export default function SearchableUserList({ users }: SearchableUserListProps) {
         className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
       >
         {filteredUsers.map((user) => (
-          <Card key={user.id} className="hover:shadow-lg transition-shadow">
-            <Link href={`/user/${user.id}`} className="block">
+          <Link
+            key={user.id}
+            href={`/user/${user.id}`}
+            className="group block hover:shadow-lg transition-shadow rounded-lg overflow-hidden"
+          >
+            <Card className="h-full">
               <CardHeader>
                 <CardTitle>{user.name}</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-1 text-sm">
-                <p><span className="font-medium">Email:</span> {user.email}</p>
-                <p><span className="font-medium">Компания:</span> {user.company.name}</p>
+              <CardContent className="space-y-2 text-sm">
+                <p>
+                  <span className="font-medium">Email:</span> {user.email}
+                </p>
+                <p>
+                  <span className="font-medium">Компания:</span> {user.company.name}
+                </p>
+                <p className="mt-2 text-black dark:text-white group-hover:underline">
+                  Подробнее →
+                </p>
               </CardContent>
-            </Link>
-          </Card>
+            </Card>
+          </Link>
         ))}
+
         {filteredUsers.length === 0 && (
           <p className="col-span-full text-center text-muted-foreground">
             По запросу «{searchQuery}» ничего не найдено.
