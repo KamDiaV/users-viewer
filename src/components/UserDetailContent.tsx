@@ -19,7 +19,7 @@ export default function UserDetailContent({ user }: UserDetailContentProps) {
     >
       <h1 className="text-2xl font-bold">{user.name}</h1>
 
-      <div className="space-y-1 text-sm">
+      <div className="space-y-2 text-sm">
         <p>
           <span className="font-medium">Username:</span> {user.username}
         </p>
@@ -41,13 +41,8 @@ export default function UserDetailContent({ user }: UserDetailContentProps) {
         </p>
       </div>
 
-      <Button asChild>
-        <Link
-          href="/"
-          className="inline-block rounded-md bg-zinc-800 px-4 py-2 text-white hover:bg-zinc-700"
-        >
-          ← Назад
-        </Link>
+      <Button asChild variant="outline" className="px-4 py-2 mt-8">
+        <Link href="/">← Назад</Link>
       </Button>
     </motion.main>
   );
