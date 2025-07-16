@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo, ChangeEvent } from "react";
+import { motion } from "framer-motion";
 import { User } from "@/types/user";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -10,27 +11,18 @@ interface SearchableUserListProps {
   users: User[];
 }
 
-export function SearchableUserList(props: SearchableUserListProps) {
-  // Исходный список пользователей из пропсов
-  const usersList = props.users;
-
-  // Строка поиска
+export function SearchableUserList({ users }: SearchableUserListProps) {
   const [searchQuery, setSearchQuery] = useState<string>("");
 
-  // Отфильтрованный список пользователей на основе searchQuery
   const filteredUsers = useMemo<User[]>(() => {
     const normalizedQuery = searchQuery.trim().toLowerCase();
+    return users.filter((user) =>
+      user.name.toLowerCase().includes(normalizedQuery)
+    );
+  }, [users, searchQuery]);
 
-    return usersList.filter((user) => {
-      const normalizedUserName = user.name.toLowerCase();
-      return normalizedUserName.includes(normalizedQuery);
-    });
-  }, [usersList, searchQuery]);
-
-  // Обработчик изменения текста в поле поиска
   const handleSearchInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    const newQueryValue = event.target.value;
-    setSearchQuery(newQueryValue);
+    setSearchQuery(event.target.value);
   };
 
   return (
@@ -42,9 +34,17 @@ export function SearchableUserList(props: SearchableUserListProps) {
         className="mb-6 max-w-md"
       />
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.4 }}
+        className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
+      >
         {filteredUsers.map((userItem) => (
-          <Card key={userItem.id} className="hover:shadow-lg transition-shadow">
+          <Card
+            key={userItem.id}
+            className="hover:shadow-lg transition-shadow"
+          >
             <Link href={`/user/${userItem.id}`} className="block">
               <CardHeader>
                 <CardTitle>{userItem.name}</CardTitle>
@@ -54,7 +54,8 @@ export function SearchableUserList(props: SearchableUserListProps) {
                   <span className="font-medium">Email:</span> {userItem.email}
                 </p>
                 <p>
-                  <span className="font-medium">Компания:</span> {userItem.company.name}
+                  <span className="font-medium">Компания:</span>{" "}
+                  {userItem.company.name}
                 </p>
               </CardContent>
             </Link>
@@ -66,7 +67,7 @@ export function SearchableUserList(props: SearchableUserListProps) {
             По запросу «{searchQuery}» ничего не найдено.
           </p>
         )}
-      </div>
+      </motion.div>
     </div>
   );
 }
