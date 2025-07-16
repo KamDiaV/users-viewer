@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, ChangeEvent } from "react";
+import { useState, useMemo, useRef, useEffect, ChangeEvent } from "react";
 import { motion } from "framer-motion";
 import { User } from "@/types/user";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -11,23 +11,27 @@ interface SearchableUserListProps {
   users: User[];
 }
 
-export function SearchableUserList({ users }: SearchableUserListProps) {
+export default function SearchableUserList({ users }: SearchableUserListProps) {
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    inputRef.current?.blur();
+  }, []);
 
   const filteredUsers = useMemo<User[]>(() => {
-    const normalizedQuery = searchQuery.trim().toLowerCase();
-    return users.filter((user) =>
-      user.name.toLowerCase().includes(normalizedQuery)
-    );
+    const q = searchQuery.trim().toLowerCase();
+    return users.filter((u) => u.name.toLowerCase().includes(q));
   }, [users, searchQuery]);
 
-  const handleSearchInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setSearchQuery(event.target.value);
+  const handleSearchInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
   };
 
   return (
-    <div className="container mx-auto p-6">
+    <>
       <Input
+        ref={inputRef}  
         placeholder="Введите имя пользователя для поиска..."
         value={searchQuery}
         onChange={handleSearchInputChange}
@@ -40,34 +44,25 @@ export function SearchableUserList({ users }: SearchableUserListProps) {
         transition={{ duration: 0.4 }}
         className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
       >
-        {filteredUsers.map((userItem) => (
-          <Card
-            key={userItem.id}
-            className="hover:shadow-lg transition-shadow"
-          >
-            <Link href={`/user/${userItem.id}`} className="block">
+        {filteredUsers.map((user) => (
+          <Card key={user.id} className="hover:shadow-lg transition-shadow">
+            <Link href={`/user/${user.id}`} className="block">
               <CardHeader>
-                <CardTitle>{userItem.name}</CardTitle>
+                <CardTitle>{user.name}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-1 text-sm">
-                <p>
-                  <span className="font-medium">Email:</span> {userItem.email}
-                </p>
-                <p>
-                  <span className="font-medium">Компания:</span>{" "}
-                  {userItem.company.name}
-                </p>
+                <p><span className="font-medium">Email:</span> {user.email}</p>
+                <p><span className="font-medium">Компания:</span> {user.company.name}</p>
               </CardContent>
             </Link>
           </Card>
         ))}
-
         {filteredUsers.length === 0 && (
           <p className="col-span-full text-center text-muted-foreground">
             По запросу «{searchQuery}» ничего не найдено.
           </p>
         )}
       </motion.div>
-    </div>
+    </>
   );
 }

@@ -1,22 +1,36 @@
 "use client";
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
-export default function UserError({ error, reset,
+export default function UserError({
+  error,
+  reset,
 }: {
   error: Error;
   reset: () => void;
 }) {
+  const [showDetails, setShowDetails] = useState(false);
+
   return (
-    <main className="flex h-screen flex-col items-center justify-center space-y-4 p-6">
-      <p className="text-center text-red-600">
-        Не удалось загрузить данные пользователя: {error.message}
-      </p>
-      <Button onClick={() => reset()}>
-        Попробовать снова
-      </Button>
-      <Link href="/" className="mt-2 underline">
+    <main className="flex h-screen flex-col items-center justify-center space-y-6 px-6">
+      <p className="text-2xl font-semibold text-red-600">Что-то пошло не так.</p>
+
+      <div className="flex space-x-4">
+        <Button onClick={() => reset()}>Попробовать снова</Button>
+        <Button variant="outline" onClick={() => setShowDetails((prev) => !prev)}>
+          Подробнее
+        </Button>
+      </div>
+
+      {showDetails && (
+        <div className="max-w-screen-md w-full bg-gray-100 dark:bg-gray-800 p-4 rounded text-sm whitespace-pre-wrap">
+          {error.message}
+        </div>
+      )}
+
+      <Link href="/" className="mt-4 text-blue-600 underline">
         ← На главную
       </Link>
     </main>

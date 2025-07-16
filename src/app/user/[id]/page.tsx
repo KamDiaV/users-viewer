@@ -13,7 +13,7 @@ export default async function UserPage({ params }: PageProps) {
   try {
     user = await getUser(id);
   } catch (error) {
-    // Если пользователь не найден или другой сбой — показываем 404
+    // Если getUser выбросит (404 или другая ошибка), показываем 404
     notFound();
   }
 

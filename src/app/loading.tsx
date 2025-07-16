@@ -3,9 +3,9 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Loading() {
   return (
-    <main className="container mx-auto grid gap-6 p-6 md:grid-cols-2 lg:grid-cols-3">
-      {Array.from({ length: 6 }).map((_, i) => (
-        <Card key={i} className="animate-pulse">
+    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {Array.from({ length: 6 }).map((_, idx) => (
+        <Card key={idx} className="animate-pulse">
           <CardHeader>
             <Skeleton className="h-6 w-1/2" />
           </CardHeader>
@@ -16,6 +16,6 @@ export default function Loading() {
           </CardContent>
         </Card>
       ))}
-    </main>
+    </div>
   );
 }

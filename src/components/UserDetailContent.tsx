@@ -15,7 +15,7 @@ export default function UserDetailContent({ user }: UserDetailContentProps) {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className="mx-auto max-w-xl space-y-4 p-6"
+      className="mx-auto max-w-screen-xl space-y-4"
     >
       <h1 className="text-2xl font-bold">{user.name}</h1>
 
