@@ -14,7 +14,7 @@ export default function UserError({
   const [showDetails, setShowDetails] = useState(false);
 
   return (
-    <main className="flex h-screen flex-col items-center justify-center space-y-6 px-6">
+    <main className="flex flex-1 flex-col items-center justify-center space-y-6 px-6">
       <p className="text-2xl font-semibold text-red-600">Что-то пошло не так.</p>
 
       <div className="flex space-x-4">
