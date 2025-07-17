@@ -1,10 +1,12 @@
 # Users Viewer
 
-Демо-приложение на **Next.js** для просмотра списка пользователей и их детальных карточек. Данные загружаются из публичного API [JSONPlaceholder](https://jsonplaceholder.typicode.com/users). 
-Интерфейс построен на React и Tailwind CSS.
+Демо-приложение на **Next.js** для просмотра списка пользователей и их детальных карточек. Данные загружаются из публичного API [JSONPlaceholder](https://jsonplaceholder.typicode.com). 
+Интерфейс построен на React, Tailwind CSS и библиотеке компонентов shadcn/ui.
 
 Готовая версия сайта доступна по адресу:
-<https://users-viewer-uvw2.vercel.app/>
+<a href="https://users-viewer-uvw2.vercel.app/" target="_blank" rel="noopener noreferrer">
+  https://users-viewer-uvw2.vercel.app/
+</a>
 
 ## ✨ Функционал
 
@@ -59,3 +61,6 @@ src/
 ├─ styles/       # глобальные стили
 └─ types/        # типы TypeScript
 ```
+---
+
+**Приятной разработки!**
