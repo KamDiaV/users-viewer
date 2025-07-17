@@ -4,9 +4,7 @@
 Интерфейс построен на React, Tailwind CSS и библиотеке компонентов shadcn/ui.
 
 Готовая версия сайта доступна по адресу:
-<a href="https://users-viewer-uvw2.vercel.app/" target="_blank" rel="noopener noreferrer">
-  https://users-viewer-uvw2.vercel.app/
-</a>
+<https://users-viewer-uvw2.vercel.app/>
 
 ## ✨ Функционал
 
