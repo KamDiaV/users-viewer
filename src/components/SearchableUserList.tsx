@@ -63,7 +63,7 @@ export default function SearchableUserList({ users }: SearchableUserListProps) {
                 </p>
                 
               </CardContent>
-              <CardFooter className="pt-2">
+              <CardFooter>
                 <p className="text-black text-sm dark:text-white group-hover:underline">
                   Подробнее →
                 </p>
