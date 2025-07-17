@@ -30,7 +30,7 @@ export default function UserError({
         </div>
       )}
 
-      <Link href="/" className="mt-4 text-blue-600 underline">
+      <Link href="/" className="mt-4 text-black dark:text-white hover:underline">
         ← На главную
       </Link>
     </main>
