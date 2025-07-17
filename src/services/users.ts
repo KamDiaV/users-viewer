@@ -3,7 +3,7 @@ import { User } from "@/types/user";
 // Получаем всех пользователей
 export async function getUsers(): Promise<User[]> {
   const res = await fetch("https://jsonplaceholder.typicode.com/users", {
-    // кеш только 60 с, чтобы не гонять API на каждый refresh
+    // кеш только 60 с, чтобы не гонять API на каждый refresh в теории можно и больше на учебном 
     next: { revalidate: 60 },
   });
 

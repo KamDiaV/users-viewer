@@ -1,4 +1,4 @@
-import { getUser } from "@/lib/fetchUsers";
+import { getUser } from "@/services/users";
 import { notFound } from "next/navigation";
 import UserDetailContent from "@/components/UserDetailContent";
 

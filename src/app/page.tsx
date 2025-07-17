@@ -1,5 +1,5 @@
 import { User } from "@/types/user";
-import { getUsers } from "@/lib/fetchUsers";
+import { getUsers } from "@/services/users";
 import SearchableUserList from "@/components/SearchableUserList"; 
 
 export const revalidate = 60;
