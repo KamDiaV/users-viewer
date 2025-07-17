@@ -17,6 +17,12 @@ export default function UserDetailContent({ user }: UserDetailContentProps) {
       transition={{ duration: 0.4 }}
       className="mx-auto max-w-screen-xl space-y-4"
     >
+      <div className="flex justify-start">
+        <Button asChild variant="outline" className="px-4 py-2">
+          <Link href="/">← Назад</Link>
+        </Button>
+      </div>
+
       <h1 className="text-2xl font-bold">{user.name}</h1>
 
       <div className="space-y-2 text-sm">
@@ -40,10 +46,6 @@ export default function UserDetailContent({ user }: UserDetailContentProps) {
           <span className="font-medium">Company:</span> {user.company.name}
         </p>
       </div>
-
-      <Button asChild variant="outline" className="px-4 py-2 mt-8">
-        <Link href="/">← Назад</Link>
-      </Button>
     </motion.main>
   );
 }
