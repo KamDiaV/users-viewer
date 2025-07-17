@@ -1,28 +1,21 @@
-import { getUser } from "@/services/users";
-import { notFound } from "next/navigation";
-import UserDetailContent from "@/components/UserDetailContent";
+// src/app/user/[id]/page.tsx
 
-type UserPageProps = {
-  params: {
-    id: string;
-  };
-};
+import { getUser } from '@/services/users'
+import { notFound } from 'next/navigation'
+import UserDetailContent from '@/components/UserDetailContent'
 
-export default async function UserPage({ params }: UserPageProps) {
-  // Получаем пользователя по id
-  const { id } = params;
+export default async function UserPage({
+  params,
+}: {
+  params: Promise<{ id: string }>
+}) {
+  // согласно новой модели Dynamic APIs в Next 15+, нужно await
+  const { id } = await params
 
-  const user = await getUser(id).catch((error) => {
-    // Если это не 404, а, например, сетевой таймаут — пробрасываем дальше,
-    // чтобы отобразился компонент error.tsx
-    throw error;
-  });
-
-  // Если API вернул null (пользователь не найден) — показываем кастомную 404 страницу
+  const user = await getUser(id)
   if (!user) {
-    notFound();
+    notFound()
   }
 
-  // Передаём данные в клиентский компонент с анимацией
-  return <UserDetailContent user={user} />;
+  return <UserDetailContent user={user} />
 }
