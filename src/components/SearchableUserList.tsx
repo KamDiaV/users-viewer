@@ -3,7 +3,7 @@
 import { useState, useMemo, useRef, useEffect, ChangeEvent } from "react";
 import { motion } from "framer-motion";
 import { User } from "@/types/user";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardFooter, } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 
@@ -16,7 +16,6 @@ export default function SearchableUserList({ users }: SearchableUserListProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    // при каждом монтировании сбрасываем фокус
     inputRef.current?.blur();
   }, []);
 
@@ -51,21 +50,24 @@ export default function SearchableUserList({ users }: SearchableUserListProps) {
             href={`/user/${user.id}`}
             className="group block hover:shadow-lg transition-shadow rounded-lg overflow-hidden"
           >
-            <Card className="h-full">
+            <Card className="h-full flex flex-col">
               <CardHeader>
                 <CardTitle>{user.name}</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-2 text-sm">
+              <CardContent className="space-y-2 text-sm flex-grow">
                 <p>
                   <span className="font-medium">Email:</span> {user.email}
                 </p>
                 <p>
                   <span className="font-medium">Компания:</span> {user.company.name}
                 </p>
-                <p className="mt-2 text-black dark:text-white group-hover:underline">
+                
+              </CardContent>
+              <CardFooter className="pt-2">
+                <p className="text-black text-sm dark:text-white group-hover:underline">
                   Подробнее →
                 </p>
-              </CardContent>
+              </CardFooter>
             </Card>
           </Link>
         ))}
