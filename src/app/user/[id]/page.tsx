@@ -1,16 +1,28 @@
-import { getUser } from '@/services/users'
-import { notFound } from 'next/navigation'
-import UserDetailContent from '@/components/UserDetailContent'
+import { getUser } from "@/services/users";
+import { notFound } from "next/navigation";
+import UserDetailContent from "@/components/UserDetailContent";
 
-interface UserPageProps {
-  params: { id: string }
-  searchParams?: Record<string, string | string[]>
-}
+type UserPageProps = {
+  params: {
+    id: string;
+  };
+};
 
-export default async function UserPage({
-  params,
-}: UserPageProps) {
-  const user = await getUser(params.id)
-  if (!user) notFound()
-  return <UserDetailContent user={user} />
+export default async function UserPage({ params }: UserPageProps) {
+  // Получаем пользователя по id
+  const { id } = params;
+
+  const user = await getUser(id).catch((error) => {
+    // Если это не 404, а, например, сетевой таймаут — пробрасываем дальше,
+    // чтобы отобразился компонент error.tsx
+    throw error;
+  });
+
+  // Если API вернул null (пользователь не найден) — показываем кастомную 404 страницу
+  if (!user) {
+    notFound();
+  }
+
+  // Передаём данные в клиентский компонент с анимацией
+  return <UserDetailContent user={user} />;
 }
