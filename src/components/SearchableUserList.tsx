@@ -29,13 +29,20 @@ export default function SearchableUserList({ users }: SearchableUserListProps) {
 
   return (
     <>
-      <Input
-        ref={inputRef}
-        placeholder="Введите имя пользователя для поиска..."
-        value={searchQuery}
-        onChange={handleSearchInputChange}
-        className="mb-6 max-w-md"
-      />
+    <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.4 }}
+        className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
+      >
+        <Input
+          ref={inputRef}
+          placeholder="Введите имя пользователя для поиска..."
+          value={searchQuery}
+          onChange={handleSearchInputChange}
+          className="mb-6 max-w-md"
+        />
+      </motion.div>
 
       <motion.div
         initial={{ opacity: 0 }}
