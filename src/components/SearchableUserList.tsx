@@ -17,9 +17,9 @@ export default function SearchableUserList({ users }: SearchableUserListProps) {
   const debouncedQuery = useDebounce(searchQuery, 300);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    inputRef.current?.blur();
-  }, []);
+  // useEffect(() => {
+  //   inputRef.current?.blur();
+  // }, []);
 
   const filteredUsers = useMemo<User[]>(() => {
     const q = debouncedQuery.trim().toLowerCase();
