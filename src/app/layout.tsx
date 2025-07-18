@@ -4,7 +4,7 @@ import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
 import { ThemeProvider } from "@/context/ThemeContext";
 
-const inter = Inter({ subsets: ["latin"] }); 
+const inter = Inter({ subsets: ["latin"], display: "swap" }); 
 
 export const metadata = {
   title: "Users Viewer",
