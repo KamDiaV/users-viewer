@@ -2,6 +2,7 @@ import "../styles/globals.css";
 import { Inter } from "next/font/google";
 import Header from "@/components/common/Header";
 import Footer from "@/components/common/Footer";
+import { ThemeProvider } from "@/context/ThemeContext";
 
 const inter = Inter({ subsets: ["latin"] }); 
 
@@ -21,13 +22,15 @@ export default function RootLayout({
         className={`${inter.className} flex min-h-screen flex-col`}
         suppressHydrationWarning
       >
-        <Header />
-        <main className="flex-1 pt-6">
-          <div className="mx-auto max-w-screen-xl px-6">
-            {children}
-          </div>
-        </main>
-        <Footer />
+        <ThemeProvider>
+          <Header />
+          <main className="flex-1 pt-6">
+            <div className="mx-auto max-w-screen-xl px-6">
+              {children}
+            </div>
+          </main>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );
