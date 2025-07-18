@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo, useRef, useEffect, ChangeEvent } from "react";
+import { useDebounce } from "../lib/useDebounce";
 import { motion } from "framer-motion";
 import { User } from "@/types/user";
 import { Card, CardContent, CardHeader, CardTitle, CardFooter, } from "@/components/ui/card";
@@ -13,6 +14,7 @@ interface SearchableUserListProps {
 
 export default function SearchableUserList({ users }: SearchableUserListProps) {
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const debouncedQuery = useDebounce(searchQuery, 300);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -20,9 +22,10 @@ export default function SearchableUserList({ users }: SearchableUserListProps) {
   }, []);
 
   const filteredUsers = useMemo<User[]>(() => {
-    const q = searchQuery.trim().toLowerCase();
+    const q = debouncedQuery.trim().toLowerCase();
+    if (q.length < 3) return users;
     return users.filter((u) => u.name.toLowerCase().includes(q));
-  }, [users, searchQuery]);
+  }, [users, debouncedQuery]);
 
   const handleSearchInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
